@@ -1,10 +1,8 @@
 [package]
-name = "advent_of_code_2021_solutions_rust"
-version = "0.1.0"
+name = "aoc2021"
+version = "1.0.0"
 authors = ["Thomas Kendrick"]
 edition = "2018"
 
 [dependencies]
-aoc-runner = "*"
-aoc-runner-derive = "*"
 libmath = "*"

@@ -24,12 +24,10 @@ fn instruction_parser(line: &str) -> Instruction {
     }
 }
 
-#[aoc_generator(day2)]
 pub fn input_generator(input: &str) -> Vec<Instruction> {
     input.lines().map(instruction_parser).collect()
 }
 
-#[aoc(day2, part1)]
 fn solve_part_1(input: &Vec<Instruction>) -> i32 {
     let mut current_pos: Point = (0, 0);
     for instruction in input {
@@ -43,7 +41,6 @@ fn solve_part_1(input: &Vec<Instruction>) -> i32 {
     }
     current_pos.0 * current_pos.1
 }
-#[aoc(day2, part2)]
 fn solve_part_2(input: &Vec<Instruction>) -> i32 {
     let mut aim: i32 = 0;
     let mut current_pos: Point = (0, 0);
@@ -60,4 +57,17 @@ fn solve_part_2(input: &Vec<Instruction>) -> i32 {
         }
     }
     current_pos.0 * current_pos.1
+}
+
+fn main() {
+    let input = aoc2021::get_day_input(2);
+    let parsed_input = input
+        .lines()
+        .map(instruction_parser)
+        .collect();
+
+    let part1 = solve_part_1(&parsed_input);
+    println!("Solution to part one: {}", part1);
+    let part2 = solve_part_2(&parsed_input);
+    println!("Solution to part two: {}", part2);
 }
