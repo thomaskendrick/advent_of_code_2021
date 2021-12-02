@@ -24,16 +24,6 @@ fn instruction_parser(line: &str) -> Instruction {
     }
 }
 
-impl Instruction {
-    fn calculate_offset(self: &Self) -> Point {
-        match self.direction {
-            Direction::Forward => (1 * self.distance, 0),
-            Direction::Up => (0, -1 * self.distance),
-            Direction::Down => (0, 1 * self.distance),
-        }
-    }
-}
-
 #[aoc_generator(day2)]
 pub fn input_generator(input: &str) -> Vec<Instruction> {
     input.lines().map(instruction_parser).collect()
@@ -43,10 +33,15 @@ pub fn input_generator(input: &str) -> Vec<Instruction> {
 fn solve_part_1(input: &Vec<Instruction>) -> i32 {
     let mut current_pos: Point = (0, 0);
     for instruction in input {
-        let offset = instruction.calculate_offset();
+        let offset = match instruction.direction {
+            Direction::Forward => (1 * instruction.distance, 0),
+            Direction::Up => (0, -1 * instruction.distance),
+            Direction::Down => (0, 1 * instruction.distance),
+        };
+
         current_pos = (current_pos.0 + offset.0, current_pos.1 + offset.1)
     }
-    return current_pos.0 * current_pos.1;
+    current_pos.0 * current_pos.1
 }
 #[aoc(day2, part2)]
 fn solve_part_2(input: &Vec<Instruction>) -> i32 {
@@ -55,11 +50,14 @@ fn solve_part_2(input: &Vec<Instruction>) -> i32 {
     for instruction in input {
         match instruction.direction {
             Direction::Forward => {
-                current_pos = (current_pos.0 + instruction.distance, current_pos.1 + (aim * instruction.distance)) 
-            },
-            Direction::Up => {aim += -1 * instruction.distance},
-            Direction::Down => {aim += instruction.distance},
+                current_pos = (
+                    current_pos.0 + instruction.distance,
+                    current_pos.1 + (aim * instruction.distance),
+                )
+            }
+            Direction::Up => aim += -1 * instruction.distance,
+            Direction::Down => aim += instruction.distance,
         }
     }
-    return current_pos.0 * current_pos.1;
+    current_pos.0 * current_pos.1
 }
