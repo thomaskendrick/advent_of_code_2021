@@ -1,9 +1,4 @@
-extern crate aoc_runner;
-
-#[macro_use]
-extern crate aoc_runner_derive;
-
-pub mod day1;
-pub mod day2;
-
-aoc_lib! { year = 2021 }
+pub fn get_day_input(day: i8) -> String {
+    std::fs::read_to_string(format!("./input/day{}.txt", day))
+        .unwrap()
+}

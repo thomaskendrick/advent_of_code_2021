@@ -1,20 +1,16 @@
-#[aoc_generator(day1)]
-pub fn input_generator(input: &str) -> Vec<i32> {
-    input.lines().map(|x|x.parse().unwrap()).collect()
-}
-
-#[aoc(day1, part1)]
 fn solve_part_1(input: &Vec<i32>) -> i32 {
     let mut previous: i32 = input[0];
-    let mut count:i32 = 0;
+    let mut count: i32 = 0;
 
     for x in input {
-        if x > &previous {count+=1}
+        if x > &previous {
+            count += 1
+        }
         previous = *x;
     }
     return count;
 }
-#[aoc(day1, part2)]
+
 fn solve_part_2(input: &Vec<i32>) -> i32 {
     let mut input2 = input.clone();
     input2.remove(0);
@@ -30,7 +26,22 @@ fn solve_part_2(input: &Vec<i32>) -> i32 {
         let window_1_sum: i32 = vals.0.iter().sum();
         let window_2_sum: i32 = vals.1.iter().sum();
 
-        if window_2_sum > window_1_sum {increase_count += 1}
+        if window_2_sum > window_1_sum {
+            increase_count += 1
+        }
     }
     return increase_count;
+}
+
+fn main() {
+    let input = aoc2021::get_day_input(1);
+    let parsed_input = input
+        .lines()
+        .map(|x| x.parse().unwrap())
+        .collect();
+
+    let part1 = solve_part_1(&parsed_input);
+    println!("Solution to part one: {}", part1);
+    let part2 = solve_part_2(&parsed_input);
+    println!("Solution to part two: {}", part2);
 }
