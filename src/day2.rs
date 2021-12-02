@@ -48,3 +48,18 @@ fn solve_part_1(input: &Vec<Instruction>) -> i32 {
     }
     return current_pos.0 * current_pos.1;
 }
+#[aoc(day2, part2)]
+fn solve_part_2(input: &Vec<Instruction>) -> i32 {
+    let mut aim: i32 = 0;
+    let mut current_pos: Point = (0, 0);
+    for instruction in input {
+        match instruction.direction {
+            Direction::Forward => {
+                current_pos = (current_pos.0 + instruction.distance, current_pos.1 + (aim * instruction.distance)) 
+            },
+            Direction::Up => {aim += -1 * instruction.distance},
+            Direction::Down => {aim += instruction.distance},
+        }
+    }
+    return current_pos.0 * current_pos.1;
+}
