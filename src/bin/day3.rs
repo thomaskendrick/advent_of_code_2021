@@ -5,8 +5,8 @@ fn solve_part_1(input: &Vec<&str>) -> isize {
     for binary_code in input {
         for (i, bit) in binary_code.chars().enumerate() {
             match bit {
-                '0' => {*occurance_map.entry(i).or_insert(-1) += -1},
-                '1' => {*occurance_map.entry(i).or_insert(1) += 1},
+                '0' => {*occurance_map.entry(i).or_insert(0) += -1},
+                '1' => {*occurance_map.entry(i).or_insert(0) += 1},
                 _ => panic!("Quantum computing not implemented")
             }
         }
@@ -27,10 +27,6 @@ fn solve_part_1(input: &Vec<&str>) -> isize {
     gamma_rate * epsilon_rate
 }
 
-fn solve_part_2(input: &Vec<&str>) -> i32 {
-    0
-}
-
 fn main() {
     let input = aoc2021::get_day_input(3);
     let parsed_input = input
@@ -39,8 +35,8 @@ fn main() {
 
     let part1 = solve_part_1(&parsed_input);
     println!("Solution to part one: {}", part1);
-    let part2 = solve_part_2(&parsed_input);
-    println!("Solution to part two: {}", part2);
+    // let part2 = solve_part_2(&parsed_input);
+    // println!("Solution to part two: {}", part2);
 }
 #[cfg(test)]
 mod tests {
