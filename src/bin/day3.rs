@@ -41,7 +41,7 @@ fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
     let mut o2_code_list = binary_code_list.clone();
     let mut co2_code_list = binary_code_list.clone();
 
-    for i in 0..binary_code_list.len() {
+    for i in 0..binary_code_list[0].len() {
         if o2_code_list.len() > 1 {
             let (one_count, zero_count) =
                 *generate_bit_occurance_map(&o2_code_list).get(&i).unwrap();
