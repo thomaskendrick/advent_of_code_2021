@@ -20,7 +20,8 @@ fn generate_bit_occurance_map(binary_code_list: &Vec<&str>) -> BTreeMap<usize, (
     occurance_map
 }
 
-fn solve_part_1(occurance_map: &BTreeMap<usize, (i32, i32)>) -> isize {
+fn solve_part_1(binary_code_list: &Vec<&str>) -> isize {
+    let occurance_map = generate_bit_occurance_map(&binary_code_list);
     let mut gamma_rate_string = String::new();
     let mut epsilon_rate_string = String::new();
     for (zero_count, one_count) in occurance_map.values() {
@@ -81,8 +82,7 @@ fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
 fn main() {
     let input = aoc2021::get_day_input(3);
     let parsed_input = input.lines().collect();
-    let occurance_map = generate_bit_occurance_map(&parsed_input);
-    let part1 = solve_part_1(&occurance_map);
+    let part1 = solve_part_1(&parsed_input);
     println!("Solution to part one: {}", part1);
     let part2 = solve_part_2(&parsed_input);
     println!("Solution to part two: {}", part2);
@@ -96,7 +96,7 @@ mod tests {
             "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000",
             "11001", "00010", "01010",
         ];
-        assert_eq!(solve_part_1(&generate_bit_occurance_map(&test_data)), 198);
+        assert_eq!(solve_part_1(&test_data), 198);
     }
     #[test]
     fn part_two_test() {
