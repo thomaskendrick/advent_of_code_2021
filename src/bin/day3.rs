@@ -49,12 +49,12 @@ fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
             if one_count > zero_count {
                 o2_code_list = o2_code_list
                     .into_iter()
-                    .filter(|&code| code.chars().collect::<Vec<char>>()[*&i] == '1')
+                    .filter(|&code| code.chars().nth(i).unwrap() == '1')
                     .collect::<Vec<&str>>();
             } else {
                 o2_code_list = o2_code_list
                     .into_iter()
-                    .filter(|&code| code.chars().collect::<Vec<char>>()[*&i] == '0')
+                    .filter(|&code| code.chars().nth(i).unwrap() == '0')
                     .collect::<Vec<&str>>();
             }
         }
@@ -64,12 +64,12 @@ fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
             if zero_count >= one_count {
                 co2_code_list = co2_code_list
                     .into_iter()
-                    .filter(|&code| code.chars().collect::<Vec<char>>()[*&i] == '1')
+                    .filter(|&code| code.chars().nth(i).unwrap() == '1')
                     .collect::<Vec<&str>>();
             } else {
                 co2_code_list = co2_code_list
                     .into_iter()
-                    .filter(|&code| code.chars().collect::<Vec<char>>()[*&i] == '0')
+                    .filter(|&code| code.chars().nth(i).unwrap() == '0')
                     .collect::<Vec<&str>>();
             }
         }
