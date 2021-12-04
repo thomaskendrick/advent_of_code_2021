@@ -94,15 +94,12 @@ fn solve_part_1(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>)
     let mut winning_board: Option<BingoBoard> = None;
     let mut winning_number: Option<u8> = None;
 
-    'main: for number in bingo_caller_list {
+    'bingo_caller: for number in bingo_caller_list {
         for board in part_1_boards.iter_mut() {
-            let was_stamped = board.check(number);
-            if was_stamped {
-                if board.is_winner() {
-                    winning_board = Some(board.clone());
-                    winning_number = Some(*number);
-                    break 'main;
-                }
+            if board.check(number) && board.is_winner() {
+                winning_board = Some(board.clone());
+                winning_number = Some(*number);
+                break 'bingo_caller;
             }
         }
     }
@@ -117,11 +114,8 @@ fn solve_part_2(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>)
             if board.won {
                 continue;
             }
-            let was_stamped = board.check(number);
-            if was_stamped {
-                if board.is_winner() {
-                    solutions.push(board.calc_unstamped() * i32::from(*number))
-                }
+            if board.check(number) && board.is_winner() {
+                solutions.push(board.calc_unstamped() * i32::from(*number))
             }
         }
     }
