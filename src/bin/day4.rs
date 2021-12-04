@@ -73,7 +73,7 @@ fn input_parser(input: &str) -> (Vec<u8>, Vec<BingoBoard>) {
 
     loop {
         let mut next_board_row_vect: Vec<Vec<u8>> = Vec::new();
-        for _i in 0..=4 {
+        for _ in 0..=4 {
             let row: Vec<u8> = line_interator
                 .next()
                 .unwrap()
