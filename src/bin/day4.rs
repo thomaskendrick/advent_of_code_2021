@@ -15,12 +15,10 @@ impl BingoBoard {
         }
     }
     fn check(&mut self, num: &u8) -> bool {
-        for row in self.rows.iter_mut() {
-            for (value, stamp) in row {
-                if *value == *num {
-                    *stamp = true;
-                    return true;
-                }
+        for (value, stamp) in self.rows.iter_mut().flatten() {
+            if *value == *num {
+                *stamp = true;
+                return true;
             }
         }
         false
@@ -29,7 +27,7 @@ impl BingoBoard {
         let mut column_check = vec![true; self.rows[0].len()];
         for row in self.rows.iter() {
             let mut row_check = true;
-            for (i ,(_, stamp)) in row.iter().enumerate() {
+            for (i, (_, stamp)) in row.iter().enumerate() {
                 if !stamp {
                     column_check[i] = false;
                     row_check = false;
@@ -48,11 +46,9 @@ impl BingoBoard {
     }
     fn calc_unstamped(&self) -> i32 {
         let mut sum: i32 = 0;
-        for row in &self.rows {
-            for (value, stamp) in row {
-                if !stamp {
-                    sum += i32::from(*value);
-                }
+        for (value, stamp) in self.rows.iter().flatten() {
+            if !stamp {
+                sum += i32::from(*value);
             }
         }
         sum
@@ -86,7 +82,9 @@ fn input_parser(input: &str) -> (Vec<u8>, Vec<BingoBoard>) {
         }
         bingo_board_list.push(BingoBoard::new(next_board_row_vect));
 
-        if line_interator.next().is_none() {break};
+        if line_interator.next().is_none() {
+            break;
+        };
     }
     (bingo_caller_list, bingo_board_list)
 }
