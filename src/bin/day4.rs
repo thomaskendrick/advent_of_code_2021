@@ -33,7 +33,7 @@ impl BingoBoard {
                     row_check = false;
                 }
             }
-            if row_check == true {
+            if row_check {
                 self.won = true;
                 return true;
             };
