@@ -26,7 +26,7 @@ impl BingoBoard {
         false
     }
     fn is_winner(&mut self) -> bool {
-        let mut column_check = [true, true, true, true, true];
+        let mut column_check = vec![true; self.rows[0].len()];
         for row in self.rows.iter() {
             let mut row_check = true;
             for (i ,(_, stamp)) in row.iter().enumerate() {
@@ -85,12 +85,8 @@ fn input_parser(input: &str) -> (Vec<u8>, Vec<BingoBoard>) {
             next_board_row_vect.push(row);
         }
         bingo_board_list.push(BingoBoard::new(next_board_row_vect));
-        match line_interator.next() {
-            None => {
-                break;
-            }
-            Some(_) => {}
-        }
+
+        if line_interator.next().is_none() {break};
     }
     (bingo_caller_list, bingo_board_list)
 }
@@ -175,5 +171,14 @@ mod tests {
         };
         assert_eq!(test.is_winner(), true);
         assert_eq!(test.won, true);
+    }
+    #[test]
+    fn refactor_test() {
+        let input = aoc2021::get_day_input(4);
+        let (bingo_caller_list, bingo_board_list) = input_parser(&input);
+        let part_1_result = solve_part_1(&bingo_caller_list, &bingo_board_list);
+        assert_eq!(part_1_result, 51034);
+        let part_2_result = solve_part_2(&bingo_caller_list, &bingo_board_list);
+        assert_eq!(part_2_result, 5434);
     }
 }
