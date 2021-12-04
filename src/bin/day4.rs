@@ -91,19 +91,15 @@ fn input_parser(input: &str) -> (Vec<u8>, Vec<BingoBoard>) {
 
 fn solve_part_1(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>) -> i32 {
     let mut part_1_boards = bingo_board_list.clone();
-    let mut winning_board: Option<BingoBoard> = None;
-    let mut winning_number: Option<u8> = None;
 
-    'bingo_caller: for number in bingo_caller_list {
+    for number in bingo_caller_list {
         for board in part_1_boards.iter_mut() {
             if board.check(number) && board.is_winner() {
-                winning_board = Some(board.clone());
-                winning_number = Some(*number);
-                break 'bingo_caller;
+                return board.calc_unstamped() * i32::from(*number);
             }
         }
     }
-    winning_board.unwrap().calc_unstamped() * i32::from(winning_number.unwrap())
+    panic!("No winners");
 }
 fn solve_part_2(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>) -> i32 {
     let mut part_2_boards = bingo_board_list.clone();
@@ -119,7 +115,7 @@ fn solve_part_2(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>)
             }
         }
     }
-    *solutions.last().unwrap()
+    *solutions.last().expect("No winners")
 }
 
 fn main() {
