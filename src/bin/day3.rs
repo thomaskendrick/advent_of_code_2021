@@ -43,10 +43,10 @@ fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
     let mut co2_code_list = binary_code_list.clone();
 
     for i in 0..binary_code_list[0].len() {
-        if o2_code_list.len() > 1 {
-            let (one_count, zero_count) =
+        if o2_code_list.len() >= 1 {
+            let (zero_count, one_count) =
                 *generate_bit_occurance_map(&o2_code_list).get(&i).unwrap();
-            if one_count > zero_count {
+            if one_count >= zero_count {
                 o2_code_list = o2_code_list
                     .into_iter()
                     .filter(|&code| code.chars().nth(i).unwrap() == '1')
@@ -59,17 +59,17 @@ fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
             }
         }
         if co2_code_list.len() > 1 {
-            let (one_count, zero_count) =
+            let (zero_count, one_count) =
                 *generate_bit_occurance_map(&co2_code_list).get(&i).unwrap();
-            if zero_count >= one_count {
+            if zero_count <= one_count {
                 co2_code_list = co2_code_list
                     .into_iter()
-                    .filter(|&code| code.chars().nth(i).unwrap() == '1')
+                    .filter(|&code| code.chars().nth(i).unwrap() == '0')
                     .collect::<Vec<&str>>();
             } else {
                 co2_code_list = co2_code_list
                     .into_iter()
-                    .filter(|&code| code.chars().nth(i).unwrap() == '0')
+                    .filter(|&code| code.chars().nth(i).unwrap() == '1')
                     .collect::<Vec<&str>>();
             }
         }
