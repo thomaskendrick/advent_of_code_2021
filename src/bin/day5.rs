@@ -68,8 +68,7 @@ fn solve_part_1(lines: &[LineSegment]) -> i32 {
 
     for line in orth_lines {
        for point in line.walk() {
-           let val = visit_map.entry(point).or_insert(0);
-           *val += 1;
+           *visit_map.entry(point).or_insert(0) += 1;
        }
     }
     let mut intersections = 0;
@@ -83,8 +82,7 @@ fn solve_part_2(lines: &[LineSegment]) -> i32 {
 
     for line in lines {
        for point in line.walk() {
-           let val = visit_map.entry(point).or_insert(0);
-           *val += 1;
+           *visit_map.entry(point).or_insert(0) += 1;
        }
     }
     let mut intersections = 0;
