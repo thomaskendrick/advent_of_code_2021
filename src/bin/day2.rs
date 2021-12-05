@@ -33,7 +33,7 @@ fn solve_part_1(input: &[Instruction]) -> i32 {
     for instruction in input {
         let offset = match instruction.direction {
             Direction::Forward => (instruction.distance, 0),
-            Direction::Up => (0, !instruction.distance),
+            Direction::Up => (0, -1 * instruction.distance),
             Direction::Down => (0, instruction.distance),
         };
 
@@ -52,7 +52,7 @@ fn solve_part_2(input: &[Instruction]) -> i32 {
                     current_pos.1 + (aim * instruction.distance),
                 )
             }
-            Direction::Up => aim += !instruction.distance,
+            Direction::Up => aim += -1 * instruction.distance,
             Direction::Down => aim += instruction.distance,
         }
     }
