@@ -58,7 +58,7 @@ fn parse_line(point_str_line: &str) -> LineSegment {
     }
 }
 
-fn solve_part_1(lines: &[LineSegment]) -> i32 {
+fn solve_part_1(lines: &[LineSegment]) -> usize {
     let orth_lines: Vec<&LineSegment> = lines
         .iter()
         .filter(|x| x.is_vert_or_horizontal())
@@ -71,13 +71,10 @@ fn solve_part_1(lines: &[LineSegment]) -> i32 {
            *visit_map.entry(point).or_insert(0) += 1;
        }
     }
-    let mut intersections = 0;
-    for (_, val) in visit_map {
-        if val > 1 {intersections += 1}
-    }
-    intersections
+    visit_map.retain(|_k, v| v > &mut 1);
+    visit_map.keys().len()
 }
-fn solve_part_2(lines: &[LineSegment]) -> i32 {
+fn solve_part_2(lines: &[LineSegment]) -> usize {
     let mut visit_map: HashMap<Point, i32> = HashMap::new();
 
     for line in lines {
@@ -85,11 +82,8 @@ fn solve_part_2(lines: &[LineSegment]) -> i32 {
            *visit_map.entry(point).or_insert(0) += 1;
        }
     }
-    let mut intersections = 0;
-    for (_, val) in visit_map {
-        if val > 1 {intersections += 1}
-    }
-    intersections
+    visit_map.retain(|_k, v| v > &mut 1);
+    visit_map.keys().len()
 }
 
 fn main() {
