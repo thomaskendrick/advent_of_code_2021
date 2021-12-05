@@ -1,4 +1,4 @@
-fn solve_part_1(input: &Vec<i32>) -> i32 {
+fn solve_part_1(input: &[i32]) -> i32 {
     let mut previous: i32 = input[0];
     let mut count: i32 = 0;
 
@@ -8,11 +8,11 @@ fn solve_part_1(input: &Vec<i32>) -> i32 {
         }
         previous = *x;
     }
-    return count;
+    count
 }
 
-fn solve_part_2(input: &Vec<i32>) -> i32 {
-    let mut input2 = input.clone();
+fn solve_part_2(input: &[i32]) -> i32 {
+    let mut input2 = input.to_owned();
     input2.remove(0);
 
     let window_1_iterator = input.windows(3);
@@ -30,12 +30,12 @@ fn solve_part_2(input: &Vec<i32>) -> i32 {
             increase_count += 1
         }
     }
-    return increase_count;
+    increase_count
 }
 
 fn main() {
     let input = aoc2021::get_day_input(1);
-    let parsed_input = input
+    let parsed_input :Vec<i32> = input
         .lines()
         .map(|x| x.parse().unwrap())
         .collect();
