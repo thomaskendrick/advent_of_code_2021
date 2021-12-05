@@ -131,9 +131,9 @@ mod tests {
             start: Point { x: 0, y: 9 },
             end: Point { x: 5, y: 12 },
         };
-        assert_eq!(vertical_line.is_vert_or_horizontal(), true);
-        assert_eq!(horizontal_line.is_vert_or_horizontal(), true);
-        assert_eq!(angled_line.is_vert_or_horizontal(), false);
+        assert!(vertical_line.is_vert_or_horizontal());
+        assert!(horizontal_line.is_vert_or_horizontal());
+        assert!(!angled_line.is_vert_or_horizontal());
     }
     #[test]
     fn walk_test() {
