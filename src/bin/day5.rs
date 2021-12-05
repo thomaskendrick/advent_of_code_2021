@@ -26,12 +26,14 @@ fn parse_line(point_str_line: &str) -> LineSegment {
     }
 }
 
-pub fn input_parser(input: &str) {
-    // let point_strings: Vec<LineSegment> = input.lines().map(
-    // ).collect();
+fn is_vert_or_horizontal(LineSegment {start, end}: LineSegment) -> bool {
+    (start.x == end.x) || (start.y == end.y)
 }
+
 fn main() {
     let input = aoc2021::get_day_input(5);
+    let line_segements: Vec<LineSegment> = input.lines().map(parse_line).collect();
+    println!("Parsed line line_segments {:?}", line_segements);
 }
 
 #[cfg(test)]
@@ -39,13 +41,30 @@ mod tests {
     use super::*;
     #[test]
     fn parse_lines_test() {
-        let test_line = "0,9 -> 5,9";
+        let test_line = "932,123 -> 1233,21";
         assert_eq!(
             parse_line(test_line),
             LineSegment {
+                start: Point { x: 932, y: 123 },
+                end: Point { x: 1233, y: 21 }
+            }
+        );
+    }
+    fn is_vert_or_horizontal_test(){
+            let vertical_line = LineSegment {
                 start: Point { x: 0, y: 9 },
                 end: Point { x: 5, y: 9 }
-            }
-        )
+            };
+            let horizontal_line = LineSegment {
+                start: Point { x: 0, y: 9 },
+                end: Point { x: 5, y: 9 }
+            };
+            let angled_line = LineSegment {
+                start: Point { x: 0, y: 9 },
+                end: Point { x: 5, y: 12 }
+            };
+            assert_eq!(is_vert_or_horizontal(vertical_line), true);
+            assert_eq!(is_vert_or_horizontal(horizontal_line), true);
+            assert_eq!(is_vert_or_horizontal(angled_line), false);
     }
 }
