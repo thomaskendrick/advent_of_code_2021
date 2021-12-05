@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 
-fn generate_bit_occurance_map(binary_code_list: &Vec<&str>) -> BTreeMap<usize, (i32, i32)> {
+fn generate_bit_occurance_map(binary_code_list: &[&str]) -> BTreeMap<usize, (i32, i32)> {
     let mut occurance_map: BTreeMap<usize, (i32, i32)> = BTreeMap::new();
     for binary_code in binary_code_list {
         for (i, bit) in binary_code.chars().enumerate() {
@@ -20,8 +20,8 @@ fn generate_bit_occurance_map(binary_code_list: &Vec<&str>) -> BTreeMap<usize, (
     occurance_map
 }
 
-fn solve_part_1(binary_code_list: &Vec<&str>) -> isize {
-    let occurance_map = generate_bit_occurance_map(&binary_code_list);
+fn solve_part_1(binary_code_list: &[&str]) -> isize {
+    let occurance_map = generate_bit_occurance_map(binary_code_list);
     let mut gamma_rate_string = String::new();
     let mut epsilon_rate_string = String::new();
     for (zero_count, one_count) in occurance_map.values() {
@@ -38,12 +38,12 @@ fn solve_part_1(binary_code_list: &Vec<&str>) -> isize {
     gamma_rate * epsilon_rate
 }
 
-fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
-    let mut o2_code_list = binary_code_list.clone();
-    let mut co2_code_list = binary_code_list.clone();
+fn solve_part_2(binary_code_list: &[&str]) -> isize {
+    let mut o2_code_list = binary_code_list.to_owned();
+    let mut co2_code_list = binary_code_list.to_owned();
 
     for i in 0..binary_code_list[0].len() {
-        if o2_code_list.len() >= 1 {
+        if !o2_code_list.is_empty() {
             let (zero_count, one_count) =
                 *generate_bit_occurance_map(&o2_code_list).get(&i).unwrap();
             if one_count >= zero_count {
@@ -74,14 +74,14 @@ fn solve_part_2(binary_code_list: &Vec<&str>) -> isize {
             }
         }
     }
-    let o2_rating = isize::from_str_radix(&o2_code_list[0], 2).unwrap();
-    let co2_rating = isize::from_str_radix(&co2_code_list[0], 2).unwrap();
+    let o2_rating = isize::from_str_radix(o2_code_list[0], 2).unwrap();
+    let co2_rating = isize::from_str_radix(co2_code_list[0], 2).unwrap();
     o2_rating * co2_rating
 }
 
 fn main() {
     let input = aoc2021::get_day_input(3);
-    let parsed_input = input.lines().collect();
+    let parsed_input: Vec<&str> = input.lines().collect();
     let part1 = solve_part_1(&parsed_input);
     println!("Solution to part one: {}", part1);
     let part2 = solve_part_2(&parsed_input);
