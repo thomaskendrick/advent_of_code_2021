@@ -122,7 +122,7 @@ mod tests {
             end: Point { x: 5, y: 9 },
         };
         let horizontal_line = LineSegment {
-            start: Point { x: 0, y: 9 },
+            start: Point { x: 5, y: 3 },
             end: Point { x: 5, y: 9 },
         };
         let angled_line = LineSegment {
