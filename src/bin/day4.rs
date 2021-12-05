@@ -61,7 +61,7 @@ fn input_parser(input: &str) -> (Vec<u8>, Vec<BingoBoard>) {
     let bingo_caller_list: Vec<u8> = line_interator
         .next()
         .unwrap()
-        .split(",")
+        .split(',')
         .map(|val| val.parse().unwrap())
         .collect();
 
@@ -89,8 +89,8 @@ fn input_parser(input: &str) -> (Vec<u8>, Vec<BingoBoard>) {
     (bingo_caller_list, bingo_board_list)
 }
 
-fn solve_part_1(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>) -> i32 {
-    let mut part_1_boards = bingo_board_list.clone();
+fn solve_part_1(bingo_caller_list: &[u8], bingo_board_list: &[BingoBoard]) -> i32 {
+    let mut part_1_boards = bingo_board_list.to_owned();
 
     for number in bingo_caller_list {
         for board in part_1_boards.iter_mut() {
@@ -101,8 +101,8 @@ fn solve_part_1(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>)
     }
     panic!("No winners");
 }
-fn solve_part_2(bingo_caller_list: &Vec<u8>, bingo_board_list: &Vec<BingoBoard>) -> i32 {
-    let mut part_2_boards = bingo_board_list.clone();
+fn solve_part_2(bingo_caller_list: &[u8], bingo_board_list: &[BingoBoard]) -> i32 {
+    let mut part_2_boards = bingo_board_list.to_owned();
     let mut solutions: Vec<i32> = Vec::new();
 
     for number in bingo_caller_list {
@@ -142,8 +142,8 @@ mod tests {
             ],
             won: false,
         };
-        assert_eq!(test.is_winner(), true);
-        assert_eq!(test.won, true);
+        assert!(test.is_winner());
+        assert!(test.won);
     }
     #[test]
     fn row_winner_test() {
@@ -157,8 +157,8 @@ mod tests {
             ],
             won: false,
         };
-        assert_eq!(test.is_winner(), true);
-        assert_eq!(test.won, true);
+        assert!(test.is_winner());
+        assert!(test.won);
     }
     #[test]
     fn refactor_test() {
