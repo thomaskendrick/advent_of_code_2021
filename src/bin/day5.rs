@@ -71,7 +71,7 @@ fn solve_part_1(lines: &[LineSegment]) -> usize {
            *visit_map.entry(point).or_insert(0) += 1;
        }
     }
-    visit_map.retain(|_k, v| v > &mut 1);
+    visit_map.retain(|_k, v| *v > 1);
     visit_map.keys().len()
 }
 fn solve_part_2(lines: &[LineSegment]) -> usize {
@@ -82,7 +82,7 @@ fn solve_part_2(lines: &[LineSegment]) -> usize {
            *visit_map.entry(point).or_insert(0) += 1;
        }
     }
-    visit_map.retain(|_k, v| v > &mut 1);
+    visit_map.retain(|_k, v| *v > 1);
     visit_map.keys().len()
 }
 
