@@ -1,5 +1,4 @@
 use std::cmp::max;
-use std::cmp::min;
 use std::collections::HashMap;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -17,24 +16,24 @@ struct LineSegment {
 impl LineSegment {
     fn walk(&self) -> Vec<Point> {
         let mut walk_points: Vec<Point> = Vec::new();
-        let delta_x = self.end.x - self.start.x;
-        let delta_y = self.end.y - self.start.y;
-        let mut line_length_remaining = max(delta_x.abs(), delta_y.abs());
-        let mut current_pos = self.start.clone();
+        let dx = self.end.x - self.start.x;
+        let dy = self.end.y - self.start.y;
+        let mut line_remaining = max(dx.abs(), dy.abs());
+        let mut pos = self.start.clone();
 
-        while line_length_remaining >= 0 {
-            walk_points.push(current_pos.clone());
-            if delta_y > 0 {
-               current_pos.y += 1 
-            } else if delta_y < 0 {
-               current_pos.y += -1 
-            }
-            if delta_x > 0 {
-               current_pos.x += 1 
-            } else if delta_x < 0 {
-               current_pos.x += -1 
-            }
-            line_length_remaining += -1;
+        while line_remaining >= 0 {
+            walk_points.push(pos.clone());
+            match dy {
+                d if d > 0 => pos.y += 1,
+                d if d < 0 => pos.y += -1,
+                _ => {}
+            };
+            match dx {
+                d if d > 0 => pos.x += 1,
+                d if d < 0 => pos.x += -1,
+                _ => {}
+            };
+            line_remaining += -1;
         }
         walk_points
     }
@@ -45,8 +44,8 @@ impl LineSegment {
 
 fn parse_line(point_str_line: &str) -> LineSegment {
     let point_strs: Vec<&str> = point_str_line.split(" -> ").collect();
-    let start_point_str: Vec<&str> = point_strs[0].split(",").collect();
-    let end_point_str: Vec<&str> = point_strs[1].split(",").collect();
+    let start_point_str: Vec<&str> = point_strs[0].split(',').collect();
+    let end_point_str: Vec<&str> = point_strs[1].split(',').collect();
     LineSegment {
         start: Point {
             x: start_point_str[0].parse().unwrap(),
@@ -59,9 +58,9 @@ fn parse_line(point_str_line: &str) -> LineSegment {
     }
 }
 
-fn solve_part_1(lines: &Vec<LineSegment>) -> i32 {
+fn solve_part_1(lines: &[LineSegment]) -> i32 {
     let orth_lines: Vec<&LineSegment> = lines
-        .into_iter()
+        .iter()
         .filter(|x| x.is_vert_or_horizontal())
         .collect();
 
@@ -79,7 +78,7 @@ fn solve_part_1(lines: &Vec<LineSegment>) -> i32 {
     }
     intersections
 }
-fn solve_part_2(lines: &Vec<LineSegment>) -> i32 {
+fn solve_part_2(lines: &[LineSegment]) -> i32 {
     let mut visit_map: HashMap<Point, i32> = HashMap::new();
 
     for line in lines {
