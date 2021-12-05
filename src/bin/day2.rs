@@ -12,7 +12,7 @@ pub struct Instruction {
 }
 
 fn instruction_parser(line: &str) -> Instruction {
-    let split_line: Vec<&str> = line.split(" ").collect();
+    let split_line: Vec<&str> = line.split(' ').collect();
     Instruction {
         direction: match split_line[0] {
             "forward" => Direction::Forward,
@@ -28,20 +28,20 @@ pub fn input_generator(input: &str) -> Vec<Instruction> {
     input.lines().map(instruction_parser).collect()
 }
 
-fn solve_part_1(input: &Vec<Instruction>) -> i32 {
+fn solve_part_1(input: &[Instruction]) -> i32 {
     let mut current_pos: Point = (0, 0);
     for instruction in input {
         let offset = match instruction.direction {
-            Direction::Forward => (1 * instruction.distance, 0),
-            Direction::Up => (0, -1 * instruction.distance),
-            Direction::Down => (0, 1 * instruction.distance),
+            Direction::Forward => (instruction.distance, 0),
+            Direction::Up => (0, !instruction.distance),
+            Direction::Down => (0, instruction.distance),
         };
 
         current_pos = (current_pos.0 + offset.0, current_pos.1 + offset.1)
     }
     current_pos.0 * current_pos.1
 }
-fn solve_part_2(input: &Vec<Instruction>) -> i32 {
+fn solve_part_2(input: &[Instruction]) -> i32 {
     let mut aim: i32 = 0;
     let mut current_pos: Point = (0, 0);
     for instruction in input {
@@ -52,7 +52,7 @@ fn solve_part_2(input: &Vec<Instruction>) -> i32 {
                     current_pos.1 + (aim * instruction.distance),
                 )
             }
-            Direction::Up => aim += -1 * instruction.distance,
+            Direction::Up => aim += !instruction.distance,
             Direction::Down => aim += instruction.distance,
         }
     }
@@ -61,7 +61,7 @@ fn solve_part_2(input: &Vec<Instruction>) -> i32 {
 
 fn main() {
     let input = aoc2021::get_day_input(2);
-    let parsed_input = input
+    let parsed_input: Vec<Instruction> = input
         .lines()
         .map(instruction_parser)
         .collect();
