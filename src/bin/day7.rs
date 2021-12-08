@@ -7,7 +7,6 @@ fn solve(input: &[i32], factor_in_efficiency: bool) -> i32 {
         .iter()
         .map(|x| calc_fuel(x, &0, factor_in_efficiency))
         .sum();
-    let mut best_position: i32 = *max_position;
     for current_position in 1..*max_position {
         let total_fuel = &crabs
             .iter()
@@ -15,7 +14,6 @@ fn solve(input: &[i32], factor_in_efficiency: bool) -> i32 {
             .sum();
         if *total_fuel < best_fuel_cost {
             best_fuel_cost = *total_fuel;
-            best_position = current_position;
         }
     }
     best_fuel_cost
@@ -33,7 +31,6 @@ fn calc_fuel(crab_position: &i32, current_position: &i32, factor_in_efficiency: 
         fuel_cost += ineff_cost;
         ineff_cost += 1;
     }
-    // dbg!(fuel_cost);
     fuel_cost
 }
 
