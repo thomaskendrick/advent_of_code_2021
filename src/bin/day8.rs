@@ -53,7 +53,7 @@ fn solve_part_2(input: &Vec<SegmentEntry>) -> i32 {
     for segment_entry in input {
         let mut decoder_map: HashMap<i32, Vec<char>> = HashMap::new();
         for signal in &segment_entry.signals {
-            let sorted_signal : Vec<char> = signal.chars().sorted().collect();
+            let sorted_signal: Vec<char> = signal.chars().sorted().collect();
             match signal.len() {
                 l if l == 2 => {
                     decoder_map.insert(1, sorted_signal);
@@ -83,8 +83,7 @@ fn solve_part_2(input: &Vec<SegmentEntry>) -> i32 {
             }
         }
         for signal in &segment_entry.signals {
-
-            let sorted_signal : Vec<char> = signal.chars().sorted().collect();
+            let sorted_signal: Vec<char> = signal.chars().sorted().collect();
             match signal.len() {
                 l if l == 5
                     && signal.contains(tl_and_middle[0])
@@ -118,7 +117,7 @@ fn solve_part_2(input: &Vec<SegmentEntry>) -> i32 {
                 _ => {}
             };
         }
-        let mut decoded_digits: Vec<i32>  = Vec::new();
+        let mut decoded_digits: Vec<i32> = Vec::new();
         for code in &segment_entry.codes {
             let sorted_code: Vec<char> = code.chars().sorted().collect();
             for (digit, valid_code) in decoder_map.iter() {
