@@ -52,7 +52,6 @@ fn solve_part_2(input: &Vec<SegmentEntry>) -> i32 {
     let mut grand_total = 0;
     for segment_entry in input {
         let mut decoder_map: HashMap<i32, Vec<char>> = HashMap::new();
-        // Get all of the easy codes with unique lengths
         for signal in &segment_entry.signals {
             let sorted_signal : Vec<char> = signal.chars().sorted().collect();
             match signal.len() {
@@ -71,28 +70,18 @@ fn solve_part_2(input: &Vec<SegmentEntry>) -> i32 {
                 _ => (),
             };
         }
-        assert_eq!(decoder_map.len(), 4);
-        // Whatever character differs from "1" and "7" must be the
-        // top segment
         let mut tr_and_br: Vec<char> = Vec::new();
         for c in decoder_map.get(&7).unwrap() {
             if decoder_map.get(&1).unwrap().contains(c) {
                 tr_and_br.push(*c);
             }
         }
-        assert_eq!(tr_and_br.len(), 2);
-
-        // Whatever characters differ from "1" and "4" must be the top left and
-        // middle segment
         let mut tl_and_middle: Vec<char> = Vec::new();
         for c in decoder_map.get(&4).unwrap() {
             if !decoder_map.get(&1).unwrap().contains(c) {
                 tl_and_middle.push(*c)
             }
         }
-        assert_eq!(tl_and_middle.len(), 2);
-
-        // Using this information we can complete our decoder
         for signal in &segment_entry.signals {
 
             let sorted_signal : Vec<char> = signal.chars().sorted().collect();
@@ -150,8 +139,8 @@ fn solve_part_2(input: &Vec<SegmentEntry>) -> i32 {
 }
 
 fn main() {
-    // let result = solve_part_1(&parse_input(&aoc2021::get_day_input(8)).unwrap());
-    // println!("{} total simple number occurances", result);
+    let result = solve_part_1(&parse_input(&aoc2021::get_day_input(8)).unwrap());
+    println!("{} total simple number occurances", result);
     let result = solve_part_2(&parse_input(&aoc2021::get_day_input(8)).unwrap());
     println!("{}", result);
 }
