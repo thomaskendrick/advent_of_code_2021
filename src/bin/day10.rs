@@ -60,7 +60,7 @@ fn solve_part_2(input: &str) -> usize {
         .map(parse)
         .filter_map(|(i_char, stack)| {
             if i_char.is_some() {
-                return None;
+                None
             } else {
                 stack.into_iter().rev().fold(Some(0), |acc, x| match x {
                     x if x == '<' => Some(5 * acc.unwrap() + 4),
