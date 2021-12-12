@@ -41,25 +41,28 @@ fn parse(line: &str) -> (Option<char>, Vec<char>) {
 }
 
 fn solve_part_1(input: &str) -> usize {
-    input.lines().map(parse).fold(0, |acc, v| match v.0 {
-        Some(c) if c == '>' => acc + 25137,
-        Some(c) if c == '}' => acc + 1197,
-        Some(c) if c == ']' => acc + 57,
-        Some(c) if c == ')' => acc + 3,
-        None => acc,
-        _ => panic!(),
-    })
+    input
+        .lines()
+        .map(parse)
+        .fold(0, |acc, (ichar, _)| match ichar {
+            Some(c) if c == '>' => acc + 25137,
+            Some(c) if c == '}' => acc + 1197,
+            Some(c) if c == ']' => acc + 57,
+            Some(c) if c == ')' => acc + 3,
+            None => acc,
+            _ => panic!(),
+        })
 }
 
 fn solve_part_2(input: &str) -> usize {
     let mut result: Vec<usize> = input
         .lines()
         .map(parse)
-        .filter_map(|v| {
-            if v.0.is_some() {
+        .filter_map(|(i_char, stack)| {
+            if i_char.is_some() {
                 return None;
             } else {
-                v.1.into_iter().rev().fold(Some(0), |acc, x| match x {
+                stack.into_iter().rev().fold(Some(0), |acc, x| match x {
                     x if x == '<' => Some(5 * acc.unwrap() + 4),
                     x if x == '{' => Some(5 * acc.unwrap() + 3),
                     x if x == '[' => Some(5 * acc.unwrap() + 2),
