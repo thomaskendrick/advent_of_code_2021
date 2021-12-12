@@ -39,7 +39,6 @@ fn read_basin<'a>(
     history.push((cx, cy));
     let mut checks: Vec<(usize, usize)> = vec![(cx + 1, cy), (cx, cy + 1)];
     let lp = map.get((cx, cy)).unwrap();
-    println!("Currently checking point {:?} with value {}", (cx, cy), lp);
     if cx > 0 {
         checks.push((cx - 1, cy));
     }
