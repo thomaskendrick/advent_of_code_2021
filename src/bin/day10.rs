@@ -12,29 +12,27 @@ fn parse(line: &str) -> (Option<char>, Vec<char>) {
     for c in line.chars().skip(1) {
         match c {
             c if c == '<' || c == '(' || c == '{' || c == '[' => char_stack.push(c),
-            c => match c {
-                c if c == '>' => {
-                    if char_stack.pop().unwrap() != '<' {
-                        return (Some(c), char_stack);
-                    }
+            c if c == '>' => {
+                if char_stack.pop().unwrap() != '<' {
+                    return (Some(c), char_stack);
                 }
-                c if c == ')' => {
-                    if char_stack.pop().unwrap() != '(' {
-                        return (Some(c), char_stack);
-                    }
+            }
+            c if c == ')' => {
+                if char_stack.pop().unwrap() != '(' {
+                    return (Some(c), char_stack);
                 }
-                c if c == '}' => {
-                    if char_stack.pop().unwrap() != '{' {
-                        return (Some(c), char_stack);
-                    }
+            }
+            c if c == '}' => {
+                if char_stack.pop().unwrap() != '{' {
+                    return (Some(c), char_stack);
                 }
-                c if c == ']' => {
-                    if char_stack.pop().unwrap() != '[' {
-                        return (Some(c), char_stack);
-                    }
+            }
+            c if c == ']' => {
+                if char_stack.pop().unwrap() != '[' {
+                    return (Some(c), char_stack);
                 }
-                _ => panic!("Illegal illegal char :P"),
-            },
+            }
+            _ => panic!("Illegal illegal char :P"),
         }
     }
     (None, char_stack)
