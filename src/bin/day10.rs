@@ -60,7 +60,6 @@ fn solve_part_2(input: &str) -> usize {
             if v.0.is_some() {
                 return None;
             } else {
-                dbg!(&v.1);
                 v.1.into_iter().rev().fold(Some(0), |acc, x| match x {
                     x if x == '<' => Some(5 * acc.unwrap() + 4),
                     x if x == '{' => Some(5 * acc.unwrap() + 3),
