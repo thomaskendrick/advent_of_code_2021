@@ -72,7 +72,7 @@ fn solve_part_2(input: &str) -> usize {
             }
         })
         .collect();
-    result.sort();
+    result.sort_unstable();
     result[(result.len() - 1) / 2]
 }
 
